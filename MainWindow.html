@@ -4,40 +4,48 @@
     <title>Shopping List</title>
 </head>
 <body style="background-color: powderblue;">
-    <h1 style="display: flex; justify-content: center;align-items: center;font-size: 40px; color: white; background-color: rebeccapurple; height: 100px;">Shopping List</h1>
-    <h3 style="display:flex; justify-content: center;font-size: 30px;font-weight: bold;">Double Click an Item to Delete it</h3>
+    <h1>Shopping List</h1>
+    <h3>Double Click an Item to Delete it</h3>
     <div></div>
-
     <script>
+        //Bringing Electron into this HTML file.
         const electron = require('electron');
         const {ipcRenderer} = electron;
         const div = document.querySelector('div')
-
+        //Render a div for each item added to the list.
         ipcRenderer.on('item:add', function(e, item){
             const p = document.createElement('p');
             const itemText = document.createTextNode(item);
             p.appendChild(itemText);
             div.appendChild(p);
         })
-
+        //Give functionality to the clear button.
         ipcRenderer.on('item:clear', function(){
             div.innerHTML = '';
         })
-
+        //Clear individual items by double-clicking.
         div.addEventListener('dblclick', removeItem);
-
-        div.addEventListener('click', copyItem);
 
         function removeItem(e){
             e.target.remove();
         }
-
-        function copyItem(e){
-            <div>{e}</div>
-        }
-
     </script>
     <style>
+        h1{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: white;
+            background-color: rebeccapurple;
+            height: 100px;
+        }
+        h3{
+            display:flex;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
         div{
             font-size: 20px;
             font-weight: bold;
